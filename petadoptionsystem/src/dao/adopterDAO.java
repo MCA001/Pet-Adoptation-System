@@ -11,7 +11,10 @@ public class adopterDAO {
 
     // CREATE
     public void addAdopter(adopter adopter) {
-        String sql = "INSERT INTO adopter (name, contact) VALUES (?, ?, ?)";
+        if (adopter.getContact() == null || adopter.getContact().length() != 10) {
+        throw new IllegalArgumentException("Contact number must be exactly 10 digits.");
+    }
+        String sql = "INSERT INTO adopter (name, contact) VALUES (?, ?)";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
