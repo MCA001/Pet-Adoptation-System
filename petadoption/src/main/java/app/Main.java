@@ -34,10 +34,10 @@ public class Main {
                 case 3 -> adoptionMenu(sc);
                 case 4 -> {
                     factory.close();
-                    System.out.println("✅ Goodbye!");
+                    System.out.println("Goodbye!");
                     return;
                 }
-                default -> System.out.println("❌ Invalid choice!");
+                default -> System.out.println("Invalid choice!");
             }
         }
     }
@@ -62,7 +62,7 @@ public class Main {
                 case 3 -> updateAdopter(sc);
                 case 4 -> deleteAdopter(sc);
                 case 5 -> { return; }
-                default -> System.out.println("❌ Invalid choice!");
+                default -> System.out.println("Invalid choice!");
             }
         }
     }
@@ -79,7 +79,7 @@ public class Main {
             System.out.print("Enter 10-digit contact: ");
             contact = sc.nextLine();
             if (contact.matches("\\d{10}")) break;
-            System.out.println("⚠️ Invalid contact! Try again.");
+            System.out.println("Invalid contact! Try again.");
         }
 
         Adopter adopter = new Adopter(name, contact);
@@ -87,7 +87,7 @@ public class Main {
 
         tx.commit();
         session.close();
-        System.out.println("✅ Adopter saved successfully!");
+        System.out.println("Adopter saved successfully!");
     }
 
     private static void viewAdopters() {
@@ -95,7 +95,7 @@ public class Main {
         List<Adopter> adopters = session.createQuery("from Adopter", Adopter.class).list();
 
         if (adopters.isEmpty()) {
-            System.out.println("⚠️ No adopters found!");
+            System.out.println("No adopters found!");
         } else {
             adopters.forEach(a ->
                     System.out.println("ID: " + a.getId() + ", Name: " + a.getName() + ", Contact: " + a.getContact()));
@@ -120,9 +120,9 @@ public class Main {
 
             session.update(adopter);
             tx.commit();
-            System.out.println("✅ Adopter updated successfully!");
+            System.out.println("Adopter updated successfully!");
         } else {
-            System.out.println("❌ Adopter not found.");
+            System.out.println("Adopter not found.");
             tx.rollback();
         }
         session.close();
@@ -139,9 +139,9 @@ public class Main {
         if (adopter != null) {
             session.delete(adopter);
             tx.commit();
-            System.out.println("✅ Adopter deleted successfully!");
+            System.out.println("Adopter deleted successfully!");
         } else {
-            System.out.println("❌ Adopter not found.");
+            System.out.println("Adopter not found.");
             tx.rollback();
         }
         session.close();
@@ -167,7 +167,7 @@ public class Main {
                 case 3 -> updatePet(sc);
                 case 4 -> deletePet(sc);
                 case 5 -> { return; }
-                default -> System.out.println("❌ Invalid choice!");
+                default -> System.out.println("Invalid choice!");
             }
         }
     }
@@ -190,7 +190,7 @@ public class Main {
 
         tx.commit();
         session.close();
-        System.out.println("✅ Pet saved successfully!");
+        System.out.println("Pet saved successfully!");
     }
 
     private static void viewPets() {
@@ -198,7 +198,7 @@ public class Main {
         List<Pet> pets = session.createQuery("from Pet", Pet.class).list();
 
         if (pets.isEmpty()) {
-            System.out.println("⚠️ No pets found!");
+            System.out.println("No pets found!");
         } else {
             pets.forEach(p ->
                     System.out.println("ID: " + p.getId() + ", Name: " + p.getName() +
@@ -231,9 +231,9 @@ public class Main {
 
             session.update(pet);
             tx.commit();
-            System.out.println("✅ Pet updated successfully!");
+            System.out.println("Pet updated successfully!");
         } else {
-            System.out.println("❌ Pet not found.");
+            System.out.println("Pet not found.");
             tx.rollback();
         }
         session.close();
@@ -250,9 +250,9 @@ public class Main {
         if (pet != null) {
             session.delete(pet);
             tx.commit();
-            System.out.println("✅ Pet deleted successfully!");
+            System.out.println("Pet deleted successfully!");
         } else {
-            System.out.println("❌ Pet not found.");
+            System.out.println("Pet not found.");
             tx.rollback();
         }
         session.close();
@@ -274,7 +274,7 @@ public class Main {
                 case 1 -> insertAdoption(sc);
                 case 2 -> viewAdoptions();
                 case 3 -> { return; }
-                default -> System.out.println("❌ Invalid choice!");
+                default -> System.out.println("Invalid choice!");
             }
         }
     }
@@ -298,7 +298,7 @@ public class Main {
 
 
         if (adopter == null || pet == null) {
-            System.out.println("❌ Invalid Adopter or Pet ID.");
+            System.out.println("Invalid Adopter or Pet ID.");
             tx.rollback();
             session.close();
             return;
@@ -306,7 +306,7 @@ public class Main {
 
 
         if ("Adopted".equalsIgnoreCase(pet.getStatus())) {
-            System.out.println("⚠️ Pet already adopted.");
+            System.out.println("Pet already adopted.");
             tx.rollback();
             session.close();
             return;
@@ -324,7 +324,7 @@ public class Main {
 
         tx.commit();
         session.close();
-        System.out.println("✅ Adoption recorded successfully!");
+        System.out.println("Adoption recorded successfully!");
     }
 
     private static void viewAdoptions() {
@@ -332,9 +332,9 @@ public class Main {
         List<Adoption> adoptions = session.createQuery("from Adoption", Adoption.class).list();
 
         if (adoptions.isEmpty()) {
-            System.out.println("⚠️ No adoptions found!");
+            System.out.println("No adoptions found!");
         } else {
-            System.out.println("\n📋 Adoption Records:");
+            System.out.println("\n Adoption Records:");
             for (Adoption adoption : adoptions) {
                 Adopter adopter = session.get(Adopter.class, adoption.getAdopterId());
                 Pet pet = session.get(Pet.class, adoption.getPetId());
@@ -348,4 +348,3 @@ public class Main {
         session.close();
     }
 }
-
